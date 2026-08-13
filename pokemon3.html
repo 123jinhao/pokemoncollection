@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Custom Pokédex</title>
+    <style>
+        /* =========================================
+           CSS STYLES 
+           ========================================= */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f5f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #ef5350;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 { margin: 0; font-size: 2.5rem; }
+        p { margin: 10px 0 0 0; opacity: 0.9; font-size: 1.1rem; }
+
+        .pokedex-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px; 
+            padding: 40px 20px;
+            max-width: 1200px; 
+            margin: 0 auto;
+        }
+
+        .pokemon-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            padding: 35px 25px; 
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer; /* Makes the mouse look like a pointing hand */
+        }
+
+        .pokemon-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+        }
+
+        .pokemon-img-container {
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            width: 220px; 
+            height: 220px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pokemon-img-container img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .pokemon-id {
+            background-color: #e0e0e0;
+            border-radius: 12px;
+            padding: 6px 15px;
+            font-size: 1rem; 
+            font-weight: 700;
+            color: #555;
+        }
+
+        .pokemon-name {
+            margin: 20px 0 15px;
+            font-size: 2rem; 
+            text-transform: capitalize;
+            color: #333;
+        }
+
+        .pokemon-type {
+            display: inline-block;
+            padding: 8px 18px; 
+            border-radius: 25px;
+            color: white;
+            font-size: 1rem; 
+            font-weight: bold;
+            margin: 0 5px;
+            text-transform: capitalize;
+        }
+
+        /* Type Colors */
+        .type-grass { background-color: #78c850; }
+        .type-poison { background-color: #a040a0; }
+        .type-psychic { background-color: #a040a0; }
+        .type-fire { background-color: #f08030; }
+        .type-water { background-color: #6890f0; }
+        .type-electric { background-color: #f8d030; }
+        .type-bug { background-color: #a8b820; }
+        .type-normal { background-color: #a8a878; }
+        .type-flying { background-color: #a890f0; }
+        .type-ghost { background-color: #705898; }
+        .type-ice { background-color: #86d6d8; }
+        .type-steel { background-color: #C5C6C7; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Pokédex</h1>
+        <p>Click on a Pokémon to view its full profile!</p>
+    </header>
+
+    <main id="pokedex" class="pokedex-container">
+        <!-- Pokémon cards will be injected here by JavaScript -->
+    </main>
+
+    <script>
+        /* =========================================
+           JAVASCRIPT: ADD YOUR POKEMON HERE
+           ========================================= */
+        
+        const myPokemonDatabase = [
+            {
+                id: 1,
+                name: "Charizard",
+                types: ["fire", "flying"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/IMG_3533-removebg-preview.png"
+            },
+            {
+                id: 2,
+                name: "Icerizard",
+                types: ["ice","flying"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/IMG_3534-removebg-preview.png"
+            },
+            {
+                id: 3,
+                name: "Swordrizard",
+                types: ["steel","flying"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/poltigod.png"
+            },
+            {
+                id: 4,
+                name: "Sheidrizard",
+                types: ["steel","flying"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/image-removebg-preview%20(6).png"
+            },
+            {
+                id: 5,
+                name: "Aritirizard",
+                types: ["fire","poison"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/1786621887542%20(1).png"
+            },            
+            {
+                id: 6,
+                name: "Moltrerizard",
+                types: ["fire", "flying"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/image-removebg-preview%20(5).png"
+            },            
+            {
+                id: 7,
+                name: "Zaprizard",
+                types: ["electric","flying"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/image-removebg-preview%20(2).png"
+            },            
+            {
+                id: 8,
+                name: "Celezard",
+                types: ["poison","flying"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/image-removebg-preview%20(8).png"
+            },            
+            {
+                id: 9,
+                name: "Alazard",
+                types: ["psychic"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/1786622114834.png"
+            },            
+            {
+                id: 10,
+                name: "Koffing",
+                types: ["poison"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/image-removebg-preview.png"
+            },                       
+            {
+                id: 11,
+                name: "Articufing",
+                types: ["poison","ice"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/image-removebg-preview%20(4).png"
+            },                       
+            {
+                id: 12,
+                name: "Molfing",
+                types: ["poison","fire"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/image-removebg-preview%20(3).png"
+            }
+        ];
+
+        /* =========================================
+           JAVASCRIPT: ENGINE (DO NOT EDIT BELOW)
+           ========================================= */
+
+        const pokedexContainer = document.getElementById('pokedex');
+
+        function renderPokedex() {
+            // Clear the container first
+            pokedexContainer.innerHTML = '';
+
+            // Loop through our database array
+            myPokemonDatabase.forEach(pokemon => {
+                
+                // Create the card element
+                const card = document.createElement('div');
+                card.classList.add('pokemon-card');
+
+                // MAKE THE CARD CLICKABLE
+                card.onclick = function() {
+                    // This sends the user to profile.html and attaches the Pokémon's ID to the URL
+                    window.location.href = `profile.html?id=${pokemon.id}`;
+                };
+
+                // Format the ID to have leading zeros (e.g., #001)
+                const formattedId = '#' + pokemon.id.toString().padStart(3, '0');
+
+                // Create HTML for the types
+                const typesHtml = pokemon.types.map(type => 
+                    `<span class="pokemon-type type-${type.toLowerCase()}">${type}</span>`
+                ).join('');
+
+                // Inject the HTML inside the card
+                card.innerHTML = `
+                    <div class="pokemon-img-container">
+                        <img src="${pokemon.image}" alt="${pokemon.name}">
+                    </div>
+                    <span class="pokemon-id">${formattedId}</span>
+                    <h2 class="pokemon-name">${pokemon.name}</h2>
+                    <div class="pokemon-types">
+                        ${typesHtml}
+                    </div>
+                `;
+
+                // Add the finished card to the page
+                pokedexContainer.appendChild(card);
+            });
+        }
+
+        // Run the function to display the Pokémon
+        renderPokedex();
+    </script>
+</body>
+</html>
