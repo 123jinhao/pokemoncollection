@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Custom Pokédex</title>
+    
+    <!-- =========================================
+         FAVICON (The tiny icon in the browser tab)
+         Replace the href link with your own image link!
+         ========================================= -->
+    <link rel="icon" type="image/png" href="image-removebg-preview (4).png">
+
     <style>
         /* =========================================
            CSS STYLES 
@@ -21,6 +28,16 @@
             text-align: center;
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* NEW CSS FOR YOUR CUSTOM LOGO */
+        .header-logo {
+            max-width: 250px; /* Change this number to make your logo bigger or smaller */
+            height: auto;
+            margin-bottom: 10px;
         }
 
         h1 { margin: 0; font-size: 2.5rem; }
@@ -107,12 +124,20 @@
         .type-ghost { background-color: #705898; }
         .type-ice { background-color: #86d6d8; }
         .type-steel { background-color: #C5C6C7; }
+         .type-ground { background-color: #E2BF65; }
+         .type-fighting { background-color: #C22E28; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Pokédex</h1>
+        <!-- =========================================
+             YOUR CUSTOM HEADER LOGO
+             Replace the src link with your own image link!
+             ========================================= -->
+        <img src="Pokédex_logo.png" alt="My Pokédex Logo" class="header-logo">
+        
+        
         <p>Click on a Pokémon to view its full profile!</p>
     </header>
 
@@ -130,75 +155,172 @@
                 id: 1,
                 name: "Charizard",
                 types: ["fire", "flying"],
-                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/IMG_3533-removebg-preview.png"
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Charizard.png"
             },
             {
                 id: 2,
                 name: "Icerizard",
                 types: ["ice","flying"],
-                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/IMG_3534-removebg-preview.png"
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Icerizard.png"
             },
             {
                 id: 3,
                 name: "Swordrizard",
                 types: ["steel","flying"],
-                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/poltigod.png"
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/swordrizard.png"
             },
             {
                 id: 4,
                 name: "Sheidrizard",
                 types: ["steel","flying"],
-                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/image-removebg-preview%20(6).png"
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/sheildrizard.png"
             },
             {
                 id: 5,
                 name: "Aritirizard",
-                types: ["fire","poison"],
-                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/1786621887542%20(1).png"
+                types: ["flying","poison"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Artirizard.png"
             },            
             {
                 id: 6,
                 name: "Moltrerizard",
                 types: ["fire", "flying"],
-                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/image-removebg-preview%20(5).png"
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/moltrerizard.png"
             },            
             {
                 id: 7,
                 name: "Zaprizard",
                 types: ["electric","flying"],
-                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/image-removebg-preview%20(2).png"
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/zaprizard.png"
             },            
             {
                 id: 8,
                 name: "Celezard",
                 types: ["poison","flying"],
-                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/image-removebg-preview%20(8).png"
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/celezard.png"
             },            
             {
                 id: 9,
                 name: "Alazard",
                 types: ["psychic"],
-                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/1786622114834.png"
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/alazard.png"
             },            
             {
                 id: 10,
                 name: "Koffing",
                 types: ["poison"],
-                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/image-removebg-preview.png"
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/koffing.png"
             },                       
             {
                 id: 11,
                 name: "Articufing",
                 types: ["poison","ice"],
-                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/image-removebg-preview%20(4).png"
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/articufing.png"
             },                       
             {
                 id: 12,
                 name: "Molfing",
                 types: ["poison","fire"],
-                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/image-removebg-preview%20(3).png"
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/molfing.png"
+            },
+            {
+                id: 13,
+                name: "Koglett",
+                types: ["poison","ground"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/koglett.png"
+            },         
+            {
+                id: 14,
+                name: "Kodrill",
+                types: ["poison","steel"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/kodrill.png"
+            },
+            {
+                id: 15,
+                name: "Garfing",
+                types: ["poison","fighting"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/garfing.png"
+            },
+            {
+                id: 16,
+                name: "鸡咯咯",
+                types: ["flying","fighting"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/helo%20(1).webp"
+            },
+            {
+                id: 17,
+                name: "Kochamp",
+                types: ["poison", "fighting"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Kochamp.png"
+            },
+            {
+                id: 18,
+                name: "Celefing",
+                types: ["bug","poison"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Celefing.png"
+            },
+            {
+                id: 19,
+                name: "Ratata",
+                types: ["normal"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/ratata.png"
+            },
+            {
+                id: 20,
+                name: "Bulbata",
+                types: ["grass"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/bulbata.png"
+            },
+            {
+                id: 21,
+                name: "Charatata",
+                types: ["flying","fire"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/charatata.png"
+            },            
+            {
+                id: 22,
+                name: "Articuta",
+                types: ["ice", "flying"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/articuta.png"
+            },            
+            {
+                id: 23,
+                name: "Usaring",
+                types: ["normal"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/usaring.png"
+            },            
+            {
+                id: 24,
+                name: "Icesarzard",
+                types: ["poison","flying"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/icesarzard.png"
+            },            
+            {
+                id: 25,
+                name: "Diglett",
+                types: ["ground"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/diglett.png"
+            },            
+            {
+                id: 26,
+                name: "Digrizard",
+                types: ["ground","fire"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/digrizard.png"
+            },                       
+            {
+                id: 27,
+                name: "Arceus",
+                types: ["normal"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/arceus.png"
+            },                       
+            {
+                id: 28,
+                name: "Rayrizard",
+                types: ["flying","fire"],
+                image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Rayrizard.png"
             }
-        ];
+]
+
 
         /* =========================================
            JAVASCRIPT: ENGINE (DO NOT EDIT BELOW)
