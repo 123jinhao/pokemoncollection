@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POKEMON COLLECTION</title>
+    <!-- favicon (keep your own) -->
+    <link rel="icon" type="image/png" href="image-removebg-preview (4).png" />
+    <!-- Google Font for a fresh look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <style>
+        /* ----- RESET & BASE ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: linear-gradient(145deg, #f7f9fc 0%, #eef1f5 100%);
+            min-height: 100vh;
+            padding: 1.5rem;
+        }
+
+        /* ----- HEADER (glassmorphism) ----- */
+        header {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 2rem 2.5rem;
+            margin: 0 auto 3rem auto;
+            max-width: 1300px;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 4px 18px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .header-logo {
+            max-height: 68px;
+            width: auto;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+            transition: transform 0.2s ease;
+        }
+        .header-logo:hover {
+            transform: scale(1.02);
+        }
+
+        .header-tagline {
+            font-weight: 600;
+            font-size: 1.1rem;
+            background: rgba(239, 83, 80, 0.10);
+            padding: 0.6rem 1.4rem;
+            border-radius: 60px;
+            color: #c62828;
+            letter-spacing: -0.01em;
+            border: 1px solid rgba(239, 83, 80, 0.15);
+            backdrop-filter: blur(4px);
+            white-space: nowrap;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .badge-pokedex {
+            background: #2d2d2d;
+            color: #f0f0f0;
+            padding: 0.45rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+            border: 1px solid #444;
+        }
+
+        .badge-pokedex i {
+            font-style: normal;
+            background: #ef5350;
+            padding: 2px 10px;
+            border-radius: 40px;
+            margin-left: 8px;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        /* ----- GRID (cards) ----- */
+        .pokedex-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ----- CARD (new UI) ----- */
+        .pokemon-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 40px;
+            padding: 1.8rem 1.2rem 2rem;
+            text-align: center;
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.7);
+            transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .pokemon-card:hover {
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: 0 28px 48px -12px rgba(0, 0, 0, 0.20), 0 0 0 1px rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        /* subtle glow ring */
+        .pokemon-card::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 40px;
+            padding: 1px;
+            background: conic-gradient(from 0deg, transparent, rgba(239, 83, 80, 0.15), transparent, rgba(239, 83, 80, 0.15), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .pokemon-card:hover::after {
+            opacity: 1;
+        }
+
+        /* image container — new shape + gradient */
+        .pokemon-img-container {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e6ecf5 100%);
+            border-radius: 30px;
+            width: 100%;
+            aspect-ratio: 1/1;
+            max-width: 200px;
+            margin: 0 auto 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.02), 0 6px 12px -6px rgba(0,0,0,0.08);
+            transition: background 0.2s ease;
+        }
+        .pokemon-card:hover .pokemon-img-container {
+            background: linear-gradient(135deg, #ffffff, #f2f6fe);
+        }
+
+        .pokemon-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.04));
+            transition: transform 0.25s ease;
+        }
+        .pokemon-card:hover .pokemon-img-container img {
+            transform: scale(1.02);
+        }
+
+        /* ID badge — softer */
+        .pokemon-id {
+            background: rgba(0, 0, 0, 0.04);
+            backdrop-filter: blur(2px);
+            padding: 0.3rem 1rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #3a3f4b;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255,255,255,0.4);
+            margin-bottom: 0.5rem;
+        }
+
+        .pokemon-name {
+            font-size: 1.9rem;
+            font-weight: 800;
+            text-transform: capitalize;
+            color: #1a1e26;
+            letter-spacing: -0.02em;
+            margin: 0.3rem 0 0.6rem;
+            line-height: 1.1;
+        }
+
+        /* types — new pill style */
+        .pokemon-types {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .pokemon-type {
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: capitalize;
+            letter-spacing: 0.2px;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(2px);
+        }
+
+        /* ----- TYPE COLORS (refreshed) ----- */
+        .type-grass { background: #5fbb6b; }
+        .type-poison { background: #a56bc2; }
+        .type-psychic { background: #e87a9c; }
+        .type-fire { background: #f47b4a; }
+        .type-water { background: #4d94ff; }
+        .type-electric { background: #f5c542; color: #1e1e1e; }
+        .type-bug { background: #9db830; }
+        .type-normal { background: #9fa0a5; }
+        .type-flying { background: #8aa3e8; }
+        .type-ghost { background: #7a6a9e; }
+        .type-ice { background: #6fc9d0; color: #1e2b3a; }
+        .type-steel { background: #b0b8c0; color: #1e1e1e; }
+        .type-ground { background: #d4b87a; }
+        .type-fighting { background: #d45c4a; }
+        .type-rock { background: #A8905C; }
+
+
+
+        /* fallback */
+        .pokemon-type:not([class*="type-"]) { background: #8f9bb3; }
+
+        /* ----- responsive tweaks ----- */
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.5rem;
+                border-radius: 32px;
+            }
+            .header-left {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .header-tagline {
+                white-space: normal;
+                font-size: 0.95rem;
+            }
+            .header-right {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            .pokedex-container {
+                gap: 1.5rem;
+            }
+            .pokemon-card {
+                padding: 1.5rem 1rem;
+            }
+            .pokemon-name {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-logo {
+                max-height: 50px;
+            }
+            .badge-pokedex {
+                font-size: 0.75rem;
+                padding: 0.3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <!-- your custom logo -->
+            <img src="Pokédex_logo.png" alt="Nexus Pokédex" class="header-logo" />
+            <span class="header-tagline"> LOOK AT ALL THIS AMAZING POKEMON THAT IS HANDRAWN !
+           SUPPORT US ! 
+         </span>
+        </div>
+        <div class="header-right">
+            <span class="badge-pokedex">Pokemons <i id="countDisplay">0</i></span>
+        </div>
+    </header>
+
+    <main id="pokedex" class="pokedex-container">
+        <!-- JavaScript will render cards here -->
+    </main>
+
+    <script>
+        /* =========================================
+           POKEMON DATABASE (exactly as provided)
+           ========================================= */
+        const myPokemonDatabase = [
+            { id: 1, name: "Charizard", types: ["fire", "flying"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Charizard.png" },
+            { id: 2, name: "Icerizard", types: ["ice","flying"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Icerizard.png" },
+            { id: 3, name: "Swordrizard", types: ["steel","flying"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/swordrizard.png" },
+            { id: 4, name: "Sheidrizard", types: ["steel","flying"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/sheildrizard.png" },
+            { id: 5, name: "Aritirizard", types: ["flying","poison"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Artirizard.png" },
+            { id: 6, name: "Moltrerizard", types: ["fire", "flying"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/moltrerizard.png" },
+            { id: 7, name: "Zaprizard", types: ["electric","flying"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/zaprizard.png" },
+            { id: 8, name: "Celezard", types: ["poison","flying"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/celezard.png" },
+            { id: 9, name: "Alazard", types: ["psychic"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/alazard.png" },
+            { id: 10, name: "Koffing", types: ["poison"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/koffing.png" },
+            { id: 11, name: "Articufing", types: ["poison","ice"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/articufing.png" },
+            { id: 12, name: "Molfing", types: ["poison","fire"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/molfing.png" },
+            { id: 13, name: "Koglett", types: ["poison","ground"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/koglett.png" },
+            { id: 14, name: "Kodrill", types: ["poison","steel"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/kodrill.png" },
+            { id: 15, name: "Garfing", types: ["poison","fighting"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/garfing.png" },
+            { id: 16, name: "鸡咯咯", types: ["flying","fighting"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/helo%20(1).webp" },
+            { id: 17, name: "Kochamp", types: ["poison", "fighting"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Kochamp.png" },
+            { id: 18, name: "Celefing", types: ["bug","poison"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Celefing.png" },
+            { id: 19, name: "Ratata", types: ["normal"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/ratata.png" },
+            { id: 20, name: "Bulbata", types: ["grass"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/bulbata.png" },
+            { id: 21, name: "Charatata", types: ["flying","fire"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/charatata.png" },
+            { id: 22, name: "Articuta", types: ["ice", "flying"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/articuta.png" },
+            { id: 23, name: "Usaring", types: ["normal"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/usaring.png" },
+            { id: 24, name: "Icesarzard", types: ["poison","flying"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/icesarzard.png" },
+            { id: 25, name: "Diglett", types: ["ground"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/diglett.png" },
+            { id: 26, name: "Digrizard", types: ["ground","fire"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/digrizard.png" },
+            { id: 27, name: "Arceus", types: ["normal"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/arceus.png" },
+            { id: 28, name: "Rayrizard", types: ["flying","fire"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Rayrizard.png" },
+            { id: 29, name: "Iron Wings", types: ["steel", "flying"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Charizard.png" },
+            { id: 30, name: "Emotionman", types: ["normal"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/emotionman.png" },
+            { id: 31, name: "Bookman", types: ["normal"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/bookman.png" },
+      { id: 32, name: "Chef Catellpipilar", types: ["poison"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/chefcatellpipilar.png" },
+            { id: 33, name: "Diggybot", types: ["ground","fighting"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/diggybot.png" },
+            { id: 34, name: "Fireball", types: ["fire"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/fireball.png" },
+            { id: 35, name: "Celebee", types: ["electric","flying"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/celebee.png" },
+            { id: 36, name: "Geonix", types: ["rock"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/geonix.png" },
+            { id: 37, name: " ", types: ["psychic"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/alazard.png" },
+            { id: 38, name: " ", types: ["poison"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/koffing.png" },
+            { id: 39, name: " ", types: ["poison","ice"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/articufing.png" },
+            { id: 40, name: " ", types: ["poison","fire"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/molfing.png" },
+            { id: 41, name: " ", types: ["poison","ground"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/koglett.png" },
+            { id: 42, name: " ", types: ["poison","steel"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/kodrill.png" },
+            { id: 43, name: "", types: ["poison","fighting"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/garfing.png" },
+            { id: 44, name: " ", types: ["flying","fighting"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/helo%20(1).webp" },
+            { id: 45, name: " ", types: ["poison", "fighting"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Kochamp.png" },
+            { id: 46, name: " ", types: ["bug","poison"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/Celefing.png" },
+            { id: 47, name: " ", types: ["normal"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/ratata.png" },
+            { id: 48, name: " ", types: ["grass"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/bulbata.png" },
+            { id: 49, name: " ", types: ["flying","fire"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/charatata.png" },
+            { id: 50, name: " ", types: ["ice", "flying"], image: "https://raw.githubusercontent.com/123jinhao/pokemon/refs/heads/main/articuta.png" }
+
+
+        ];
+
+        /* =========================================
+           RENDER ENGINE (updated UI)
+           ========================================= */
+        const container = document.getElementById('pokedex');
+        const countDisplay = document.getElementById('countDisplay');
+
+        function renderPokedex() {
+            container.innerHTML = '';
+            // update badge count
+            countDisplay.textContent = myPokemonDatabase.length;
+
+            myPokemonDatabase.forEach(pokemon => {
+                const card = document.createElement('div');
+                card.className = 'pokemon-card';
+
+                // click → profile page
+                card.addEventListener('click', () => {
+                    window.location.href = `profile.html?id=${pokemon.id}`;
+                });
+
+                const idFormatted = '#' + String(pokemon.id).padStart(3, '0');
+
+                // types html
+                const typesHtml = pokemon.types.map(t => 
+                    `<span class="pokemon-type type-${t.toLowerCase()}">${t}</span>`
+                ).join('');
+
+                card.innerHTML = `
+                    <div class="pokemon-img-container">
+                        <img src="${pokemon.image}" alt="${pokemon.name}" loading="lazy" />
+                    </div>
+                    <span class="pokemon-id">${idFormatted}</span>
+                    <h2 class="pokemon-name">${pokemon.name}</h2>
+                    <div class="pokemon-types">${typesHtml}</div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        renderPokedex();
+    </script>
+</body>
+</html>
